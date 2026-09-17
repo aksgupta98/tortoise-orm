@@ -109,6 +109,7 @@ class Event(Model):
     tournament: fields.ForeignKeyRelation[Tournament] = fields.ForeignKeyField(
         to="models.Tournament", related_name="events"
     )
+    tournament_id: int  # Put it here to improve type hints
     reporter: fields.ForeignKeyNullableRelation[Reporter] = fields.ForeignKeyField(
         to=Reporter, null=True
     )
@@ -415,6 +416,7 @@ class UUIDFields(Model):
 class MinRelation(Model):
     id = fields.IntField(primary_key=True)
     tournament: fields.ForeignKeyRelation[Tournament] = fields.ForeignKeyField("models.Tournament")
+    tournament_id: int  # Put it here to improve type hints
     participants: fields.ManyToManyRelation[Team] = fields.ManyToManyField("models.Team")
 
 
@@ -984,7 +986,9 @@ class RequiredPKModel(Model):
 
 
 class ValidatorModel(Model):
-    regex = fields.CharField(max_length=100, null=True, validators=[RegexValidator("abc.+", re.I)])
+    regex = fields.CharField(
+        max_length=100, null=True, validators=[RegexValidator("abc.+", re.IGNORECASE)]
+    )
     max_length = fields.CharField(max_length=5, null=True)
     min_length = fields.CharField(max_length=5, null=True, validators=[MinLengthValidator(3)])
     ipv4 = fields.CharField(max_length=100, null=True, validators=[validate_ipv4_address])

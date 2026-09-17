@@ -419,10 +419,12 @@ class ManyToManyFieldInstance(RelationalField[MODEL]):
         self.model_name = model_name
         self.related_name: str = related_name
         if not forward_key:
-            if not isinstance(model_name, str):
-                forward_key = f"{model_name.__name__.lower()}_id"
-            else:
-                forward_key = f"{model_name.split('.')[1].lower()}_id"
+            model_class_name = (
+                model_name.split(".")[1]  # e.g.: 'models.Users' -> 'Users'
+                if isinstance(model_name, str)
+                else model_name.__name__
+            )
+            forward_key = f"{model_class_name.lower()}_id"
         self.forward_key: str = forward_key
         self.backward_key: str = backward_key
         self.through: str = through  # type: ignore
