@@ -347,9 +347,9 @@ class ForeignKeyFieldInstance(RelationalField[MODEL]):
         # and a migrated schema disagrees with generate_schemas().
         model = getattr(self, "model", None)
         if model is not None and self.source_field:
-            backing = model._meta.fields_map.get(self.source_field)
-            if backing is not None and backing.source_field:
-                kwargs["source_field"] = backing.source_field
+            backing_field = model._meta.fields_map.get(self.source_field)
+            if backing_field is not None and backing_field.source_field:
+                kwargs["source_field"] = backing_field.source_field
         return path, args, kwargs
 
 

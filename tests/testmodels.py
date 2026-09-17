@@ -791,7 +791,7 @@ class SourceFields(Model):
 
 
 class FKSourceFields(Model):
-    """Owned by the FK ``source_field`` deconstruct tests in tests/fields/test_fk.py.
+    """Owned by ``TestDeconstructSourceField`` in tests/fields/test_fk.py.
 
     Kept separate from :class:`SourceFields` so those tests do not break if the
     shape of any other test model changes. Self-referencing so every case fits
