@@ -16,6 +16,10 @@ Added
 - ``Q.__bool__()`` so ``Q`` objects with no filters/children (including nested empty ``Q`` children) are falsy. (#2227)
 - PostgreSQL ``password`` credential now accepts a sync or async callable, resolved once per new connection, to support short-lived credentials such as AWS RDS/Aurora IAM tokens and Azure Entra ID tokens. (#2261)
 
+Changed
+^^^^^^^
+- `tortoise.contrib.starlette` now only supports Starlette 1.0+ (This does not affect FastAPI users; you can continue using FastAPI with any version of Starlette). (#2130)
+
 Fixed
 ^^^^^
 - ``ForeignKeyField``/``OneToOneField`` no longer lose a declared ``source_field`` when deconstructed. ``makemigrations`` wrote the generated ``<field>_id`` backing field name as the column name, so a migrated schema disagreed with ``generate_schemas()`` and neither path reported an error. (#2284)
